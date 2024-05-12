@@ -20,6 +20,8 @@ import com.example.todoapp.R
 import com.example.todoapp.databinding.FragmentEditTaskBinding
 import com.example.todoapp.model.Task
 import com.example.todoapp.viewmodel.TaskViewModel
+import java.text.SimpleDateFormat
+import java.util.Date
 
 
 class EditTaskFragment : Fragment(R.layout.fragment_edit_task), MenuProvider {
@@ -57,9 +59,10 @@ class EditTaskFragment : Fragment(R.layout.fragment_edit_task), MenuProvider {
         binding.editTaskFab.setOnClickListener{
             val taskTitle = binding.editTaskTitle.text.toString().trim()
             val taskDesc = binding.editTaskDesc.text.toString().trim()
+            val taskDate = SimpleDateFormat("yyyy.MM.dd").format(Date())
 
             if(taskTitle.isNotEmpty()){
-                val task  = Task(currentTask.id, taskTitle,taskDesc)
+                val task  = Task(currentTask.id, taskTitle,taskDesc,taskDate)
                 taskViewModel.updateTask(task)
                 view.findNavController().popBackStack(R.id.homeFragment,false)
             }else{

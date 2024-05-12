@@ -18,6 +18,8 @@ import com.example.todoapp.R
 import com.example.todoapp.databinding.FragmentAddTaskBinding
 import com.example.todoapp.model.Task
 import com.example.todoapp.viewmodel.TaskViewModel
+import java.text.SimpleDateFormat
+import java.util.Date
 
 
 class AddTaskFragment : Fragment(R.layout.fragment_add_task), MenuProvider {
@@ -52,9 +54,10 @@ class AddTaskFragment : Fragment(R.layout.fragment_add_task), MenuProvider {
     private fun saveTask(view: View){
         val taskTitle = binding.addTaskTitle.text.toString().trim()
         val taskDesc = binding.addTaskDesc.text.toString().trim()
+        val taskDate = SimpleDateFormat("yyyy.MM.dd").format(Date())
 
         if(taskTitle.isNotEmpty()){
-            val task = Task(0,taskTitle,taskDesc)
+            val task = Task(0,taskTitle,taskDesc,taskDate)
             taskViewModel.addTask(task)
 
             Toast.makeText(addTaskView.context, "Task Saved", Toast.LENGTH_SHORT).show()
